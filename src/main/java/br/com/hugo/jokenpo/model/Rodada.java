@@ -39,6 +39,15 @@ public class Rodada {
 			}
 			ret.put(disputa.getJogador(), resultado);
 		});	
+
+		int valueCount = 0;
+        for (Resultado resultado : ret.values()){
+            if (Resultado.DERROTA.equals(resultado))
+                valueCount++;
+        }
+        if(valueCount ==ret.size())
+        	ret.replaceAll((key, oldResult) -> Resultado.EMPATE);
+
 		
 		return ret.entrySet().stream().sorted((v1, v2) ->v1.getKey().getId().compareTo(v2.getKey().getId()))
 		        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
